@@ -46,7 +46,7 @@ TMarks 是一个现代化的智能书签管理系统，结合 AI 技术自动生
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/ai-tmarks/tmakrs.git
+git clone https://github.com/ai-tmarks/tmarks.git
 cd tmarks
 
 # 2. 安装依赖
@@ -120,10 +120,16 @@ pnpm dev
      - KV 命名空间：创建新命名空间 `PUBLIC_SHARE_KV`
    
    **c. 配置环境变量：**
-   - 设置 → 环境变量 → 为生产环境定义变量
-   - 添加以下变量（生成随机密钥）：
-     - `JWT_SECRET`：生成一个 48 位随机字符串
-     - `ENCRYPTION_KEY`：生成一个 48 位随机字符串
+   - 路径：项目设置 → 环境变量 → 生产环境
+   - 建议添加以下业务配置（括号为推荐值，可按需调整）：
+     - `ALLOW_REGISTRATION`：是否允许新用户注册，推荐 "true"（设为非 "true" 的任意值——包括 "false" 或留空——都会关闭注册；**推荐的关闭方式是直接删除该变量，避免多处配置造成混淆**）
+     - `ENVIRONMENT`：当前运行环境，生产环境请设为 "production"
+     - `JWT_ACCESS_TOKEN_EXPIRES_IN`：访问 Token 有效期，推荐 "365d"
+     - `JWT_REFRESH_TOKEN_EXPIRES_IN`：刷新 Token 有效期，推荐 "365d"
+   - ⚠️ 敏感环境变量（务必通过 Dashboard 配置，不要写入代码仓库）：
+     - `JWT_SECRET`：JWT 签名密钥，建议使用至少 48 位随机字符串
+     - `ENCRYPTION_KEY`：数据加密密钥，建议使用至少 48 位随机字符串
+   - 本地或自托管部署时，可参考 `tmarks/wrangler.toml.example` 中的 `[vars]` 示例配置（业务配置可直接照抄，敏感密钥仅在 Dashboard 中填写真实值）。
 
 4. **初始化数据库**
    - Workers & Pages → D1 → 打开 `tmarks-prod-db`
