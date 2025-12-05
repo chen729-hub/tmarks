@@ -1,5 +1,5 @@
 name = "tmarks"
-compatibility_date = "2025-12-5"
+compatibility_date = "2025-12-05"
 pages_build_output_dir = ".deploy"
 
 # ⚠️ 重要说明：
